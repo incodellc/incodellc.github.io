@@ -19,7 +19,6 @@ export default function Header() {
   const { username } = useParams();
   const isPaymentPage = useIsPage(["/pay", "/checkout", "/complete"]);
   const isHomePage = useIsPage("/");
-  console.log(isHomePage);
 
   const closeMenu = () => {
     setIsOpenMenu(false);

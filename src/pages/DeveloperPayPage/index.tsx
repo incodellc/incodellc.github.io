@@ -6,7 +6,7 @@ export interface DeveloperInfoPageProps {
 
 export default function DeveloperInfoPage(props: DeveloperInfoPageProps) {
   return (
-    <div className="max-w-xl flex flex-col gap-16">
+    <div className="max-w-xl mx-auto flex flex-col gap-16">
       <PaymentDetailsForm setClientSecret={props.setClientSecret} />
     </div>
   );

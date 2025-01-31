@@ -37,8 +37,16 @@ function CheckoutForm() {
   };
 
   return (
-    <form className="max-w-xl" onSubmit={handleSubmit}>
-      <PaymentElement id="checkout-form-payment-element" />
+    <form className="max-w-xl mx-auto" onSubmit={handleSubmit}>
+      <PaymentElement
+        options={{
+          layout: {
+            type: "tabs",
+            defaultCollapsed: false,
+          },
+        }}
+        id="checkout-form-payment-element"
+      />
       <Button className="mt-6" disabled={isLoading || !stripe || !elements} id="submit">
         Pay now
       </Button>

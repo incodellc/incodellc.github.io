@@ -8,6 +8,7 @@ import DeveloperPayPage from "../../pages/DeveloperPayPage";
 import DevInfoProvider from "../../contexts/DevInfo/DevInfoProvider";
 import PageLayout from "../PageLayout";
 import ContentLayout from "../ContentLayout";
+import CardPaymentWrapper from "../../components/CardPaymentWrapper";
 
 export default function RouterLayout() {
   const [stripe, setStripe] = useState<Stripe | null>(null);
@@ -26,9 +27,14 @@ export default function RouterLayout() {
           <Route path="/" element={<PageLayout />}>
             <Route path=":username" element={<ContentLayout />}>
               <Route index element={<DeveloperInfoPage />} />
-              <Route path="pay" element={<DeveloperPayPage setClientSecret={setClientSecret} />} />
-              <Route path="checkout" element={<CheckoutPage clientSecret={clientSecret} stripe={stripe} />} />
-              <Route path="complete" element={<CompletePage />} />
+              <Route element={<CardPaymentWrapper />}>
+                <Route path="pay" element={<DeveloperPayPage setClientSecret={setClientSecret} />} />
+                <Route
+                  path="checkout"
+                  element={<CheckoutPage clientSecret={clientSecret} stripe={stripe} />}
+                />
+                <Route path="complete" element={<CompletePage />} />
+              </Route>
             </Route>
           </Route>
         </Routes>
