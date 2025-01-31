@@ -2,6 +2,7 @@ import Title from "../Title";
 import Socials from "../Socials";
 import { TSocials } from "../../types/TSocials";
 import Button from "../Button";
+import { useIsPage } from "../../hooks/useIsPage";
 
 export interface HeroProps {
   name: string;
@@ -12,6 +13,8 @@ export interface HeroProps {
 }
 
 export default function Hero({ name, avatar, socials, position, description }: HeroProps) {
+  const isPaymentPage = useIsPage(["/pay", "/checkout", "/complete"]);
+
   return (
     <div
       id="about"
@@ -24,11 +27,11 @@ export default function Hero({ name, avatar, socials, position, description }: H
           src={avatar}
           alt="developer avatar"
         />
-        <p className="mt-4">{description}</p>
+        {!isPaymentPage && <p className="mt-4">{description}</p>}
       </div>
       <div className="w-full h-[2px] bg-green-400" />
       <Socials socials={socials} className="hidden lg:flex" />
-      <Button href="pay"> Pay services</Button>
+      {!isPaymentPage && <Button href="pay">Pay services</Button>}
     </div>
   );
 }

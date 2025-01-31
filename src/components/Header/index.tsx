@@ -6,7 +6,9 @@ import { scrollToContent } from "../../utils/scrollToContent";
 import { navLinks } from "../../mock/navLinks";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { useDevInfo } from "../../contexts/DevInfo/useDevInfo";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Button from "../Button";
+import { useIsPage } from "../../hooks/useIsPage";
 
 export default function Header() {
   const { devInfo } = useDevInfo();
@@ -14,6 +16,10 @@ export default function Header() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const isMobile = useIsMobile();
   const navigate = useNavigate();
+  const { username } = useParams();
+  const isPaymentPage = useIsPage(["/pay", "/checkout", "/complete"]);
+  const isHomePage = useIsPage("/");
+  console.log(isHomePage);
 
   const closeMenu = () => {
     setIsOpenMenu(false);
@@ -26,6 +32,9 @@ export default function Header() {
     }
   }, [isMobile]);
 
+  const homePagePath = `/${username}`;
+  const payPagePath = `/${username}/pay`;
+
   const onClickNavLink = (index: number, idSelector: string) => () => {
     setActiveLink(index);
     scrollToContent(idSelector);
@@ -35,13 +44,19 @@ export default function Header() {
 
   const onGoHome = () => {
     setActiveLink(null);
-    console.log("/" + devInfo?.username);
+    closeMenu();
+    navigate(homePagePath);
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: "smooth",
     });
-    navigate("/" + devInfo?.username);
+  };
+
+  const onGoPay = () => {
+    setActiveLink(null);
+    navigate(payPagePath);
+    closeMenu();
   };
 
   return (
@@ -52,10 +67,14 @@ export default function Header() {
       )}>
       <nav className="flex items-center justify-between container px-4 mx-auto sm:px-8">
         <BurgerMenu isOpen={isOpenMenu} setIsOpen={setIsOpenMenu} />
-        {devInfo?.socials && (
-          <Socials socials={devInfo.socials} className="flex lg:hidden [_svg]:brightness-100" />
-        )}
-
+        <div className=" flex items-center gap-4 sm:gap-8 lg:hidden">
+          {devInfo?.socials && (
+            <Socials socials={devInfo.socials} className="flex lg:hidden [_svg]:brightness-100" />
+          )}
+          <Button onClick={onGoPay} className="max-w-fit px-4 h-10">
+            Pay
+          </Button>
+        </div>
         <ul
           className={classNames(
             "fixed transition-opacity backdrop-blur-md bg-gray-900/70 top-0 left-0 h-screen w-full flex flex-col items-center py-10 justify-center gap-8 lg:backdrop-blur-none lg:bg-transparent lg:gap-6 lg:h-auto lg:flex-row lg:py-0 lg:justify-between lg:static",
@@ -68,7 +87,7 @@ export default function Header() {
               className={classNames(
                 "cursor-pointer transition-colors capitalize text-2xl sm:text-3xl lg:text-base hover:text-green-400",
                 {
-                  "text-green-400": true,
+                  "text-green-400": isHomePage,
                 }
               )}>
               Home
@@ -77,9 +96,10 @@ export default function Header() {
           {navLinks.map((navLink, i) => (
             <li key={`header-nav-link-${navLink.title}-${i}`}>
               <button
+                disabled={isPaymentPage}
                 onClick={onClickNavLink(i, navLink.href)}
                 className={classNames(
-                  "cursor-pointer transition-colors capitalize text-2xl sm:text-3xl lg:text-base hover:text-green-400",
+                  " disabled:cursor-no-drop disabled:opacity-50 disabled:hover:text-white cursor-pointer transition-colors capitalize text-2xl sm:text-3xl lg:text-base hover:text-green-400",
                   {
                     "text-green-400": activeLink === i,
                   }
@@ -88,6 +108,9 @@ export default function Header() {
               </button>
             </li>
           ))}
+          <Button onClick={onGoPay} className="max-w-fit px-8">
+            Pay
+          </Button>
         </ul>
       </nav>
     </header>

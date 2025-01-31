@@ -1,12 +1,14 @@
 import { useState, FormEvent } from "react";
 import { useElements, useStripe, PaymentElement } from "@stripe/react-stripe-js";
 import Button from "../Button";
+import { useParams } from "react-router-dom";
 
 function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { username } = useParams();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,7 +22,7 @@ function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}${window.location.pathname}#complete`,
+        return_url: `${window.location.origin}#/${username}/complete`,
       },
     });
 
@@ -35,7 +37,7 @@ function CheckoutForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="max-w-xl" onSubmit={handleSubmit}>
       <PaymentElement id="checkout-form-payment-element" />
       <Button className="mt-6" disabled={isLoading || !stripe || !elements} id="submit">
         Pay now

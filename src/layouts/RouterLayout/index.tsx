@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { loadStripe, Stripe } from "@stripe/stripe-js";
 import CompletePage from "../../pages/CompletePage";
-import ProtectedCheckoutPage from "../../pages/ProtectedCheckoutPage";
+import CheckoutPage from "../../pages/CheckoutPage";
 import DeveloperInfoPage from "../../pages/DeveloperInfoPage";
 import DeveloperPayPage from "../../pages/DeveloperPayPage";
 import DevInfoProvider from "../../contexts/DevInfo/DevInfoProvider";
@@ -26,12 +26,8 @@ export default function RouterLayout() {
           <Route path="/" element={<PageLayout />}>
             <Route path=":username" element={<ContentLayout />}>
               <Route index element={<DeveloperInfoPage />} />
-
               <Route path="pay" element={<DeveloperPayPage setClientSecret={setClientSecret} />} />
-              <Route
-                path="checkout"
-                element={<ProtectedCheckoutPage clientSecret={clientSecret} stripe={stripe} />}
-              />
+              <Route path="checkout" element={<CheckoutPage clientSecret={clientSecret} stripe={stripe} />} />
               <Route path="complete" element={<CompletePage />} />
             </Route>
           </Route>

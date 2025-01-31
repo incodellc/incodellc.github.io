@@ -15,7 +15,7 @@ export default function DeveloperInfoPage() {
   const { previousProjects, skillsAndExpertise, education, employmentHistory, languages } = devInfo;
 
   return (
-    <div className="pt-12 lg:pt-0 basis-auto flex flex-col gap-16">
+    <div className="basis-auto flex flex-col gap-16">
       <PreviousProjects projects={previousProjects} />
       <SkillsAndExpertise list={skillsAndExpertise} />
       <div className="flex gap-2 flex-col sm:flex-row">
