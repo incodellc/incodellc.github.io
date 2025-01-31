@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent, Dispatch } from "react";
 import Input from "../../components/Input";
-import SubmitButton from "../SubmitButton";
+import Button from "../Button";
 import axios from "axios";
 import { CREATE_PAYMENT } from "../../endpoints";
 import { useNavigate } from "react-router-dom";
@@ -54,7 +54,7 @@ export default function PaymentDetailsForm({ setClientSecret }: PaymentDetailsFo
       </label>
 
       <div className="mt-6">
-        <SubmitButton disabled={isLoading}>Create Payment</SubmitButton>
+        <Button disabled={isLoading}>Create Payment</Button>
       </div>
     </form>
   );

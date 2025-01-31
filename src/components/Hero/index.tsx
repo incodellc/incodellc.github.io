@@ -1,6 +1,7 @@
 import Title from "../Title";
 import Socials from "../Socials";
 import { TSocials } from "../../types/TSocials";
+import Button from "../Button";
 
 export interface HeroProps {
   name: string;
@@ -27,6 +28,7 @@ export default function Hero({ name, avatar, socials, position, description }: H
       </div>
       <div className="w-full h-[2px] bg-green-400" />
       <Socials socials={socials} className="hidden lg:flex" />
+      <Button href="pay"> Pay services</Button>
     </div>
   );
 }

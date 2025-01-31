@@ -1,6 +1,6 @@
 import { useState, FormEvent } from "react";
 import { useElements, useStripe, PaymentElement } from "@stripe/react-stripe-js";
-import SubmitButton from "../SubmitButton";
+import Button from "../Button";
 
 function CheckoutForm() {
   const stripe = useStripe();
@@ -37,9 +37,9 @@ function CheckoutForm() {
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement id="checkout-form-payment-element" />
-      <SubmitButton className="mt-6" disabled={isLoading || !stripe || !elements} id="submit">
+      <Button className="mt-6" disabled={isLoading || !stripe || !elements} id="submit">
         Pay now
-      </SubmitButton>
+      </Button>
 
       {message && (
         <p className="text-red-500 mt-1" id="payment-message">
