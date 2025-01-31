@@ -1,7 +1,7 @@
 import PaymentDetailsForm from "../../components/PaymentDetailsForm";
 
 export interface DeveloperInfoPageProps {
-  setClientSecret: any;
+  setClientSecret: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export default function DeveloperInfoPage(props: DeveloperInfoPageProps) {

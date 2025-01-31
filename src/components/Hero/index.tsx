@@ -14,7 +14,7 @@ export default function Hero({ name, avatar, socials, position, description }: H
   return (
     <div
       id="about"
-      className="pt-20 flex flex-col items-left text-left gap-5 relative pb-3 lg:text-center lg:items-center">
+      className="flex flex-col items-left text-left gap-5 relative pb-3 lg:text-center lg:items-center">
       <div>
         <Title variant="h1">{name}</Title>
         <p className="text-xl">{position}</p>
