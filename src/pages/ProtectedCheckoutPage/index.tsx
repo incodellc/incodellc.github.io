@@ -1,7 +1,7 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { Stripe } from "@stripe/stripe-js";
 import { Link } from "react-router-dom";
-import CheckoutForm from "../CheckoutForm";
+import CheckoutForm from "../../components/CheckoutForm";
 
 export interface ProtectedCheckoutPageProps {
   clientSecret: string | null;

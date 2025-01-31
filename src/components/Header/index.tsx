@@ -4,16 +4,16 @@ import Socials from "../Socials";
 import BurgerMenu from "./BurgerMenu";
 import { scrollToContent } from "../../utils/scrollToContent";
 import { navLinks } from "../../mock/navLinks";
-import { TSocials } from "../../types/TSocials";
+import { useIsMobile } from "../../hooks/useIsMobile";
+import { useDevInfo } from "../../contexts/DevInfo/useDevInfo";
+import { useNavigate } from "react-router-dom";
 
-export interface HeaderProps {
-  socials: TSocials;
-  isMobile: boolean;
-}
-
-export default function Header({ socials, isMobile }: HeaderProps) {
-  const [activeLink, setActiveLink] = useState(0);
+export default function Header() {
+  const { devInfo } = useDevInfo();
+  const [activeLink, setActiveLink] = useState<number | null>(null);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const isMobile = useIsMobile();
+  const navigate = useNavigate();
 
   const closeMenu = () => {
     setIsOpenMenu(false);
@@ -33,6 +33,17 @@ export default function Header({ socials, isMobile }: HeaderProps) {
     closeMenu();
   };
 
+  const onGoHome = () => {
+    setActiveLink(null);
+    console.log("/" + devInfo?.username);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+    navigate("/" + devInfo?.username);
+  };
+
   return (
     <header
       className={classNames(
@@ -41,7 +52,9 @@ export default function Header({ socials, isMobile }: HeaderProps) {
       )}>
       <nav className="flex items-center justify-between container px-4 mx-auto sm:px-8">
         <BurgerMenu isOpen={isOpenMenu} setIsOpen={setIsOpenMenu} />
-        <Socials socials={socials} className="flex lg:hidden [_svg]:brightness-100" />
+        {devInfo?.socials && (
+          <Socials socials={devInfo.socials} className="flex lg:hidden [_svg]:brightness-100" />
+        )}
 
         <ul
           className={classNames(
@@ -49,6 +62,18 @@ export default function Header({ socials, isMobile }: HeaderProps) {
             { "opacity-0 pointer-events-none": !isOpenMenu && isMobile },
             "lg:!opacity-1 lg:!pointer-events-auto"
           )}>
+          <li>
+            <button
+              onClick={onGoHome}
+              className={classNames(
+                "cursor-pointer transition-colors capitalize text-2xl sm:text-3xl lg:text-base hover:text-green-400",
+                {
+                  "text-green-400": true,
+                }
+              )}>
+              Home
+            </button>
+          </li>
           {navLinks.map((navLink, i) => (
             <li key={`header-nav-link-${navLink.title}-${i}`}>
               <button
