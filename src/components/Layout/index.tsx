@@ -1,18 +1,18 @@
-import { Outlet } from 'react-router-dom';
-import Hero from "../../components/Hero";
-import Header from "../../components/Header";
+import { useState, useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import Hero from "../Hero";
+import Header from "../Header";
+import useDynamicFaviconAndTitle from "../../hooks/useDynamicFaviconAndTitle";
 import { TDeveloperInfo } from "../../types/TDevelopersInfo";
 import { developersInfo } from "../../mock/developersInfo";
 import { useIsMobile } from "../../hooks/useIsMobile";
-import useDynamicFaviconAndTitle from "../../hooks/useDynamicFaviconAndTitle";
-import { useState, useEffect } from "react";
 
 export interface DeveloperInfoPageProps {
   developerInfo: TDeveloperInfo;
 }
 
 export default function DeveloperInfoPage() {
-  const username = 'kirill-katkov';
+  const username = "kirill-katkov";
   const isMobile = useIsMobile();
   const [isLoading, setIsLoading] = useState(true);
   const [developerInfo, setDeveloperInfo] = useState<TDeveloperInfo | undefined>(undefined);
