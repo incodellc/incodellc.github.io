@@ -22,7 +22,7 @@ function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}#/${username}/complete`,
+        return_url: `${window.location.origin}/incodellc.github.io#/${username}/complete`,
       },
     });
 
@@ -44,6 +44,8 @@ function CheckoutForm() {
             type: "tabs",
             defaultCollapsed: false,
           },
+
+          paymentMethodOrder: ["card", "google_pay"],
         }}
         id="checkout-form-payment-element"
       />

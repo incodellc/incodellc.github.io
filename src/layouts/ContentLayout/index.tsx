@@ -23,16 +23,6 @@ export default function ContentLayout() {
     setIsLoading(false);
   }, [username, setDevInfo]);
 
-  React.useEffect(() => {
-    if (isMobile) return document.body.classList.remove("_lock");
-
-    if (isPaymentPage) {
-      document.body.classList.add("_lock");
-    } else {
-      document.body.classList.remove("_lock");
-    }
-  }, [isPaymentPage, isMobile]);
-
   React.useLayoutEffect(() => {
     const updateSidebarHeight = () => {
       if (sidebarRef.current) {
