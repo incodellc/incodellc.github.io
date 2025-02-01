@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { useElements, useStripe, PaymentElement } from "@stripe/react-stripe-js";
+import { useElements, useStripe, PaymentElement, ExpressCheckoutElement } from "@stripe/react-stripe-js";
 import Button from "../Button";
 import { useParams } from "react-router-dom";
 
@@ -10,8 +10,8 @@ function CheckoutForm() {
   const [isLoading, setIsLoading] = useState(false);
   const { username } = useParams();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
 
     if (!stripe || !elements) {
       return;
@@ -38,6 +38,7 @@ function CheckoutForm() {
 
   return (
     <form className="max-w-xl mx-auto" onSubmit={handleSubmit}>
+      <ExpressCheckoutElement onConfirm={() => handleSubmit()} />
       <PaymentElement
         options={{
           layout: {
