@@ -2,10 +2,6 @@ import { TNavLink } from "../types/TNavLink";
 
 export const navLinks: TNavLink[] = [
   {
-    href: "#about",
-    title: "about",
-  },
-  {
     href: "#previous-projects",
     title: "previous projects",
   },

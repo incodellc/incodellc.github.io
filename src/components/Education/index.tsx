@@ -10,9 +10,9 @@ export default function Education({ data }: EducationProps) {
     <div id="education">
       <Title variant="h2">Education</Title>
       <div className="flex flex-col gap-3">
-        {data.map(({ duration, list }) => (
-          <div>
-            <p className="text-lg mb-2 tracking-wider font-bold">{duration}</p>
+        {data.map(({ duration, list }, i) => (
+          <div key={`education-${duration}-${i}`}>
+            {duration && <p className="text-lg mb-2 tracking-wider font-bold">{duration}</p>}
             <ul className="flex flex-col gap-2 list-disc ml-5">
               {list.map((item) => (
                 <li key={`education-${item}`}>{item}</li>
